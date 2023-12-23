@@ -2,6 +2,7 @@ package com.sol.turismmanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.collection.spi.PersistentList;
 
 import java.util.List;
 
@@ -12,8 +13,9 @@ public class Places {
     private Long id;
     private  String placeName;
     private String address;
-    @OneToMany(mappedBy = "places",cascade = CascadeType.ALL, orphanRemoval=true)
-    @JsonManagedReference
+    @OneToMany (mappedBy = "places",cascade = CascadeType.ALL)//, orphanRemoval=true)
+    //@JoinColumn(name = "placeId")
+    //@JsonManagedReference
     private List<Turist> turistList;
 
     public Long getId() {
@@ -38,5 +40,17 @@ public class Places {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Turist> getTuristList() {
+        return turistList;
+    }
+
+    public void setTuristList(List<Turist> turistList) {
+        /*
+            this.getTuristList().clear();
+            this.getTuristList().addAll(turistList);
+*/
+        this.turistList = turistList;
     }
 }
